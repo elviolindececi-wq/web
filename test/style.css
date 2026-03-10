@@ -1,0 +1,488 @@
+/* style.css */
+:root{
+  --bg:#0b0b0f;
+  --card:#12131a;
+  --soft:#1b1d27;
+  --text:#f4f4f6;
+  --muted:#b7bac7;
+  --gold:#d7b46a;
+  --line:rgba(255,255,255,.08);
+  --radius:18px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+/* style.css */
+:root{
+  --bg:#0b0b0f;
+  --card:#12131a;
+  --soft:#1b1d27;
+  --text:#f4f4f6;
+  --muted:#b7bac7;
+  --gold:#d7b46a;
+  --line:rgba(255,255,255,.08);
+  --radius:18px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg); /* base sólida */
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+/* ✅ Fondo fijo (estable al cambiar de pantalla/altura) */
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  /* Gradientes ajustados para mobile:
+     - más grandes (menos banding)
+     - más “lejos” del borde
+     - menos cambios perceptibles al scrollear */
+  background:
+    radial-gradient(1400px 900px at 18% -18%, rgba(215,180,106,.16), transparent 60%),
+    radial-gradient(1100px 800px at 115% 12%, rgba(135,94,255,.12), transparent 62%),
+    radial-gradient(900px 700px at 50% 110%, rgba(255,255,255,.04), transparent 65%);
+  transform: translateZ(0);
+}
+
+/* ✅ Anti-banding (grain overlay) */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  opacity: .045; /* 0.035–0.06 */
+  mix-blend-mode: overlay;
+  transform: translateZ(0);
+}
+
+/* ✅ Todo tu contenido arriba del fondo */
+.wrap{
+  position: relative;
+  z-index: 2;
+
+  max-width:880px;
+  margin:0 auto;
+  padding:28px 16px 48px;
+}
+
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  margin-bottom:18px;
+}
+.logo{
+  width:46px; height:46px;
+  display:grid; place-items:center;
+  border-radius:14px;
+  background: linear-gradient(180deg, rgba(215,180,106,.25), rgba(255,255,255,.06));
+  border:1px solid var(--line);
+  font-size:22px;
+}
+h1{
+  margin:0;
+  font-size:20px;
+  letter-spacing:.2px;
+}
+.subtitle{
+  margin:2px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  border-radius: var(--radius);
+  padding:22px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.35);
+}
+
+.screen.hidden{ display:none; }
+.screen[hidden]{ display:none; }
+
+.progress{
+  height:10px;
+  background: rgba(255,255,255,.06);
+  border-radius: 999px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  margin-bottom:16px;
+}
+.bar{
+  height:100%;
+  background: linear-gradient(90deg, var(--gold), rgba(215,180,106,.55));
+  width:0%;
+}
+
+.quiz-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:12px;
+}
+
+/* ✅ SOLO el título de pregunta se vuelve "fila" para el badge */
+#q-title{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+}
+
+h2{
+  margin:0 0 8px 0;
+  font-size:20px;
+  line-height:1.25;
+}
+
+.muted{
+  color:var(--muted);
+  margin:0;
+}
+.fineprint{
+  color:var(--muted);
+  font-size:12px;
+  margin:14px 0 0;
+  opacity:.9;
+}
+
+.options{
+  display:grid;
+  gap:10px;
+  margin:14px 0 16px;
+}
+
+.opt{
+  width:100%;
+  text-align:left;
+  padding:14px 14px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  color:var(--text);
+  cursor:pointer;
+  font-size:14px;
+  line-height:1.25;
+  transition: transform .06s ease, background .15s ease, border-color .15s ease;
+}
+.opt:active{ transform: scale(.99); }
+.opt.selected{
+  border-color: rgba(215,180,106,.7);
+  background: rgba(215,180,106,.10);
+}
+
+/* ✅ Hover solo donde realmente existe hover (evita "hover pegado" en mobile) */
+@media (hover:hover) and (pointer:fine){
+  .opt:hover{ background: rgba(255,255,255,.05); }
+  .btn:hover{ background: rgba(255,255,255,.06); }
+}
+
+.k{
+  display:inline-grid;
+  place-items:center;
+  width:26px; height:26px;
+  border-radius:9px;
+  margin-right:10px;
+  font-weight:700;
+  font-size:12px;
+  background: rgba(215,180,106,.18);
+  border:1px solid rgba(215,180,106,.35);
+  color: var(--text);
+}
+
+.cta-row{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:14px;
+}
+.cta-row.split{ justify-content:space-between; }
+.cta-row.stack{ flex-wrap:wrap; }
+.quiz-actions{ margin-top:10px; }
+
+.btn{
+  appearance:none;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  color:var(--text);
+  padding:12px 14px;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:650;
+  font-size:14px;
+  transition: background .15s ease, transform .06s ease, border-color .15s ease;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-width: 160px;
+}
+.btn:active{ transform: scale(.99); }
+.btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+.btn.primary{
+  border-color: rgba(215,180,106,.35);
+  background: linear-gradient(180deg, rgba(215,180,106,.22), rgba(215,180,106,.10));
+}
+.btn.ghost{
+  background: rgba(255,255,255,.02);
+}
+
+.form{
+  display:grid;
+  gap:14px;
+}
+.field label{
+  display:block;
+  margin-bottom:6px;
+  font-size:13px;
+  color: var(--text);
+}
+.field input, .field select{
+  width:100%;
+  padding:12px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.25);
+  color: var(--text);
+  outline:none;
+
+  /* ✅ iOS: evitar zoom en inputs */
+  font-size:16px;
+}
+.field small{
+  display:block;
+  margin-top:7px;
+  color: var(--muted);
+  font-size:12px;
+}
+.req{ color: var(--gold); }
+
+.result-box{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+  background: rgba(255,255,255,.03);
+}
+.result-box h3{ margin:0 0 8px; font-size:16px; }
+.result-box h4{ margin:0 0 8px; font-size:14px; }
+.result-box ul{ margin:8px 0 0 18px; color:var(--text); }
+.result-box li{ margin:6px 0; color:var(--text); }
+
+.gold-card{
+  margin-top:14px;
+  border-radius:16px;
+  border:1px solid rgba(215,180,106,.35);
+  background: linear-gradient(180deg, rgba(215,180,106,.14), rgba(255,255,255,.02));
+  padding:14px;
+}
+.gold-title{
+  font-weight:800;
+  letter-spacing:.2px;
+  margin-bottom:6px;
+}
+.gold-percentage{
+  font-size:34px;
+  font-weight:900;
+  margin:4px 0 10px;
+}
+.gold-text{
+  color: var(--muted);
+  line-height:1.4;
+}
+
+/* ✅ Venue note rojo */
+.field small.venue-note{
+  color:#e05a5a;
+  font-weight:500;
+}
+
+.foot{
+  margin-top:18px;
+  text-align:center;
+  color: var(--muted);
+  font-size:12px;
+}
+
+/* ==========================
+   SLIDER (music_importance)
+   ========================== */
+.slider-wrap{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  border-radius:14px;
+  padding:14px;
+}
+.slider-top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color: var(--muted);
+  margin-bottom:10px;
+}
+.slider-value{
+  min-width:34px;
+  height:30px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  color: var(--text);
+  background: rgba(215,180,106,.14);
+  border:1px solid rgba(215,180,106,.25);
+}
+.slider{ width:100%; }
+.slider-labels{
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+  font-size:12px;
+  color: var(--muted);
+}
+
+/* ==========================
+   ✅ BADGE DORADO (iPhone-safe)
+   ========================== */
+.q-icon-badge{
+  width:28px;
+  height:28px;
+  border-radius:10px;
+  display:inline-grid;
+  place-items:center;
+  flex: 0 0 auto;
+  margin-top:2px;
+  background: rgba(215,180,106,.18);
+  border: 1px solid rgba(215,180,106,.45);
+  box-shadow:
+    0 0 10px rgba(215,180,106,.20),
+    inset 0 1px 0 rgba(255,255,255,.10);
+}
+.q-title-text{ display:block; }
+
+/* ✅ escena/quote/cta */
+.quote{
+  border:1px solid rgba(215,180,106,.22);
+  background: rgba(215,180,106,.06);
+  border-radius:14px;
+  padding:12px 14px;
+}
+.scene{
+  margin-top:10px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.02);
+  border-radius:14px;
+  padding:12px 14px;
+}
+.scene .line{
+  margin:0;
+  color: var(--text);
+  line-height:1.55;
+}
+.cta-invite{
+  margin-top:12px;
+  border:1px solid rgba(215,180,106,.25);
+  background: rgba(215,180,106,.08);
+  border-radius:14px;
+  padding:12px 14px;
+}
+
+/* ==========================
+   ✅ WhatsApp icon (verde)
+   ========================== */
+.wa-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;
+  height:22px;
+}
+.wa-icon svg{
+  display:block;
+  fill:#25D366; /* verde WhatsApp */
+}
+
+/* ==========================
+   ✅ FOCUS VISIBLE (accesibilidad + premium)
+   ========================== */
+.opt:focus-visible,
+.btn:focus-visible,
+.field input:focus-visible,
+.field select:focus-visible,
+.slider:focus-visible{
+  outline: 2px solid rgba(215,180,106,.75);
+  outline-offset: 2px;
+}
+/* ✅ Anti-banding (grain overlay) */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  /* Ruido muy sutil */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  opacity: .05; /* ajustá 0.03–0.07 */
+  mix-blend-mode: overlay;
+}
+
+
+
+.wrap{ position: relative; z-index: 1; }
+
+
+.result-music{
+  margin-top: 14px;
+}
+
+.music-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(215,180,106,.25);
+  background: rgba(215,180,106,.08);
+  color: var(--gold);
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+.result-music h3{
+  margin:0 0 8px;
+}
+
+.result-music-copy{
+  line-height:1.6;
+}
+
+#result-audio{
+  width:100%;
+  margin-top:14px;
+}
+
+#result-audio-nowplaying{
+  margin-top:10px;
+}
+
+
