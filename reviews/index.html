@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reseñas — El Violín de Ceci</title>
+
+  <!-- Tipografía premium -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Subí el número para evitar caché -->
+  <link rel="stylesheet" href="style.css?v=11" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <div class="brandRow">
+        <div class="logo" aria-hidden="true">🎻</div>
+        <div class="brandText">
+          <a href="../" style="display:inline-block;margin-bottom:6px;text-decoration:none;color:rgba(255,255,255,.72)">← Volver al inicio</a>
+          <div class="brandName">El Violín de Ceci</div>
+          <div class="brandSub">Reseñas &amp; Testimonios</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="cardGlow" aria-hidden="true"></div>
+
+      <div class="summary">
+        <div class="summaryLeft">
+          <div class="starsLine">
+            <span id="starsText" class="starsText" aria-hidden="true">★★★★★</span>
+            <span id="avgStars" class="avg">0.0</span>
+          </div>
+          <div class="muted"><span id="countReviews">0</span> reseñas</div>
+        </div>
+
+        <div class="summaryRight">
+          <div class="muted">NPS promedio</div>
+          <div id="avgNps" class="nps">0.0</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="hint">
+        Dejá tu opinión en <strong>30 segundos</strong>. Si está en moderación, puede tardar en aparecer.
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardGlow" aria-hidden="true"></div>
+
+      <div class="cardTitleRow">
+        <h2>Dejá tu reseña</h2>
+      </div>
+
+      <form id="reviewForm" class="form" autocomplete="off">
+        <label class="field">
+          <span class="label">Nombre (opcional)</span>
+          <input id="name" type="text" placeholder="Tu nombre" />
+        </label>
+
+        <div class="field">
+          <div class="labelRow">
+            <span class="label">Estrellas</span>
+            <span class="muted" id="pickedStars">Elegiste 0/5</span>
+          </div>
+
+          <div class="starPicker" id="starPicker" aria-label="Seleccionar estrellas">
+            <button type="button" class="starBtn" data-value="1" aria-label="1 estrella">★</button>
+            <button type="button" class="starBtn" data-value="2" aria-label="2 estrellas">★</button>
+            <button type="button" class="starBtn" data-value="3" aria-label="3 estrellas">★</button>
+            <button type="button" class="starBtn" data-value="4" aria-label="4 estrellas">★</button>
+            <button type="button" class="starBtn" data-value="5" aria-label="5 estrellas">★</button>
+          </div>
+
+          <input type="hidden" id="stars" value="0" />
+        </div>
+
+        <div class="field">
+          <div class="labelRow">
+            <span class="label">En una escala del 0 al 10, ¿qué tan probable es que recomiende @elviolindececi a un amigo o colega?</span>
+            <span class="pill pillSoft" id="npsVal">8</span>
+          </div>
+          <input id="nps" class="range" type="range" min="0" max="10" step="1" value="8" />
+          <div class="muted">0 = nada probable · 10 = muy probable</div>
+        </div>
+
+        <label class="field">
+          <span class="label">Comentario</span>
+          <textarea id="comment" rows="4" placeholder="Contanos cómo fue tu experiencia..."></textarea>
+        </label>
+
+        <button id="submitBtn" class="btn" type="submit">
+          Enviar reseña
+        </button>
+
+        <p class="fineprint">
+          *Las reseñas pueden tardar en aparecer si están en modo moderación (approved=false).
+        </p>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="cardGlow" aria-hidden="true"></div>
+
+      <div class="cardTitleRow">
+        <h2>Testimonios</h2>
+        <button id="refreshBtn" class="btnGhost" type="button">Actualizar</button>
+      </div>
+
+      <div id="list" class="list"></div>
+    </section>
+
+    <footer class="footer">
+      <span class="muted">© El Violín de Ceci</span>
+    </footer>
+  </main>
+
+  <!-- tu JS actual -->
+  <script src="app.js?v=11"></script>
+</body>
+</html>
+
+
+
+
